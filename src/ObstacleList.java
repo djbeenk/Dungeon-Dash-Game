@@ -1,11 +1,11 @@
 import java.awt.*;
 import java.util.LinkedList;
 
-public class Controller {
+public class ObstacleList {
     LinkedList<Obstacles> obstacle = new LinkedList<Obstacles>();
     Obstacles tempObstacle;
     int gameOver;
-    public Controller(){
+    public ObstacleList(){
         gameOver = 0;
 
         for (int i = 0; i < 10; i ++){
@@ -13,14 +13,13 @@ public class Controller {
         }
     }
 
-
-
     public void paint(Graphics2D g2d){
         for(int i = 0; i < obstacle.size(); i++) {
             tempObstacle = obstacle.get(i);
             tempObstacle.paint(g2d);
         }
 
+        //This part of the code doesn't work. When the obstacles reach the end of the screen, I want them to reappear
         if(tempObstacle.getX() == 0) {
             tempObstacle.setX((int) (Math.random()*800));
         }
@@ -32,6 +31,7 @@ public class Controller {
             tempObstacle.update();
         }
 
+        //This part of the code doesn't work. When the obstacles reach the end of the screen, I want them to reappear
         if(tempObstacle.getX() == 0) {
             tempObstacle.setX((int) (Math.random()*800));
         }
@@ -41,8 +41,7 @@ public class Controller {
         obstacle.add(obstacles);
     }
 
-    public void removeObstacle(Obstacles obstacles){
-        obstacle.remove(obstacles);
-    }
-
+    //public void removeObstacle(Obstacles obstacles){
+       // obstacle.remove(obstacles);
+    //}
 }
