@@ -44,6 +44,7 @@ public class Obstacles {
     public void shift(){
         if (this.x < 0){
             this.x = (int) (800+Math.random());
+            this.y = (int) (Math.random()*400);
         }
     }
 }
