@@ -17,11 +17,7 @@ public class ObstacleList {
         for(int i = 0; i < obstacle.size(); i++) {
             tempObstacle = obstacle.get(i);
             tempObstacle.paint(g2d);
-        }
-
-        //This part of the code doesn't work. When the obstacles reach the end of the screen, I want them to reappear
-        if(tempObstacle.getX() == 0) {
-            tempObstacle.setX((int) (Math.random()*800));
+            tempObstacle.shift();
         }
     }
 
@@ -30,16 +26,12 @@ public class ObstacleList {
             tempObstacle = obstacle.get(i);
             tempObstacle.update();
         }
-
-        //This part of the code doesn't work. When the obstacles reach the end of the screen, I want them to reappear
-        if(tempObstacle.getX() == 0) {
-            tempObstacle.setX((int) (Math.random()*800));
-        }
     }
 
     public void addObstacle(Obstacles obstacles){
         obstacle.add(obstacles);
     }
+
 
     //public void removeObstacle(Obstacles obstacles){
        // obstacle.remove(obstacles);

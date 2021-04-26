@@ -40,4 +40,10 @@ public class Obstacles {
         g.setColor(Color.black);
         g.fillRect(x, y, width, height);
     }
+
+    public void shift(){
+        if (this.x < 0){
+            this.x = (int) (800+Math.random());
+        }
+    }
 }
