@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -11,7 +10,7 @@ public class MainMenuPanel extends JPanel {
         setFocusable(true);
         this.frame = frame;
         setLayout(new BorderLayout());
-
+//Title of the game, font size, and the color of the title are initialized below
         JLabel title = new JLabel("Endless Runner", SwingConstants.CENTER);
         title.setFont(new Font("Serif", Font.BOLD, 30));
         title.setBorder(BorderFactory.createEmptyBorder(100,0,0,0));
@@ -30,11 +29,13 @@ public class MainMenuPanel extends JPanel {
         JButton startButton = new JButton("Start");
         startButton.addActionListener(new startListener());
 
+        //Adds the "click start to begin" label and the button to the panel
         bottomPanel.add(start);
         bottomPanel.add(startButton);
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
+    //Listener to check when the player clicks the start game button
     private class startListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

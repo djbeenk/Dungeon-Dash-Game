@@ -10,16 +10,20 @@ public class GamePanel extends JPanel {
 
     public GamePanel() {
         setFocusable(true);
+        //Set the size of the game window
         setSize(700, 500);
+        //Initialize the dimensions of the player character (a sphere at the moment)
         player = new Player(100, 300, 10);
+        //Linked list called obstacleList which stores all of our obstacles
         o_list = new ObstacleList();
-
         setOpaque(false);
         Timer timer = new Timer(100, new TimerListener());
         timer.start();
+        //KeyListener for up and down arrow
         this.addKeyListener(new jumpListen());
     }
 
+    //Method for painting the player and the obstacles in obstacle list
     @Override
     public void paintComponent(Graphics g2d) {
         super.paintComponent(g2d);
@@ -31,17 +35,10 @@ public class GamePanel extends JPanel {
         o_list.update();
     }
 
-    public void JumpKeyListener(KeyEvent e) {
-        int code = e.getKeyCode();
-        if (code == KeyEvent.VK_SPACE) {
-            player.jump();
-            player.jumpDown();
-        }
-    }
-
     private class TimerListener implements ActionListener {
         public int x = 0;
 
+        //Method for the player character. We will repaint and update everytime we move up or down.
         @Override
         public void actionPerformed(ActionEvent e) {
             x++;
@@ -51,6 +48,7 @@ public class GamePanel extends JPanel {
         }
     }
 
+    //Method to listen for anytime the player presses the up or down arrow. Calls the player jump and jumpDown methods located in player.java
     private class jumpListen extends KeyAdapter {
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == e.VK_UP) {
