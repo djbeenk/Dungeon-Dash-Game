@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class GamePanel extends JPanel {
@@ -36,7 +37,7 @@ public class GamePanel extends JPanel {
     }
 
     private void update() {
-        o_list.update();
+        o_list.update(player);
         bat_list.updateBat();
     }
 
@@ -47,7 +48,7 @@ public class GamePanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             x++;
-            System.out.println(x);
+            //System.out.println(x);
             update();
             repaint();
         }
@@ -65,6 +66,7 @@ public class GamePanel extends JPanel {
             }
         }
     }
+    //HD player collision check requires a list of objects
 }
 
 
