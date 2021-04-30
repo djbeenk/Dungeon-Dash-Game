@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
@@ -7,6 +8,7 @@ public class GamePanel extends JPanel {
     private Player player;
     private int y;
     ObstacleList o_list;
+    ObstacleList bat_list;
 
     public GamePanel() {
         setFocusable(true);
@@ -16,6 +18,7 @@ public class GamePanel extends JPanel {
         player = new Player(100, 300, 10);
         //Linked list called obstacleList which stores all of our obstacles
         o_list = new ObstacleList();
+        bat_list = new ObstacleList();
         setOpaque(false);
         Timer timer = new Timer(100, new TimerListener());
         timer.start();
@@ -29,10 +32,12 @@ public class GamePanel extends JPanel {
         super.paintComponent(g2d);
         player.paint(g2d);
         o_list.paint((Graphics2D) g2d);
+        bat_list.paintBat((Graphics2D) g2d);
     }
 
     private void update() {
         o_list.update();
+        bat_list.updateBat();
     }
 
     private class TimerListener implements ActionListener {

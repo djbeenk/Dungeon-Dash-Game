@@ -11,10 +11,10 @@ public class MainMenuPanel extends JPanel {
         this.frame = frame;
         setLayout(new BorderLayout());
 //Title of the game, font size, and the color of the title are initialized below
-        JLabel title = new JLabel("Endless Runner", SwingConstants.CENTER);
+        JLabel title = new JLabel("Dungeon Dash", SwingConstants.CENTER);
         title.setFont(new Font("Serif", Font.BOLD, 30));
         title.setBorder(BorderFactory.createEmptyBorder(100,0,0,0));
-        title.setForeground(Color.DARK_GRAY);
+        title.setForeground(Color.WHITE);
         add(title, BorderLayout.NORTH);
 
         JPanel bottomPanel = new JPanel();

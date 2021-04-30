@@ -8,13 +8,13 @@ public class MainWindow extends JFrame {
 
     //The main window. Size and background color of the main menu are declared here
     public MainWindow() {
-        super("Endless Runner");
+        super("Dungeon Dash");
         Height = 500;
         Width = 700;
         setSize(Width, Height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainMenu = new MainMenuPanel(this);
-        mainMenu.setBackground(Color.PINK);
+        mainMenu.setBackground(new Color(50,99,77));
         add(mainMenu);
         setVisible(true);
     }

@@ -1,14 +1,17 @@
+import javax.swing.*;
 import java.awt.*;
 
 public class Player {
     private int x, y;
     private int radius;
+    Image player;
 
     //Player character is currently a sphere, x and y are locations while radius is for the shape
     public Player(int x, int y, int radius) {
         this.x = x;
         this.y = y;
         this.radius = radius;
+        player = new ImageIcon("player.gif").getImage();
     }
 
     //Not using below functions currently, may use in future
@@ -35,10 +38,9 @@ public class Player {
         this.y += 15;
     }
 
-    //Paint function. Color the player character sphere black and fill it completely based on the defined parameters
+    //Paint function.
     public void paint(Graphics g) {
-        int diameter = radius * 2;
-        g.setColor(Color.black);
-        g.fillOval(x - radius, y - radius, diameter, diameter);
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.drawImage(player, x, y, 50, 50,null);
     }
 }
