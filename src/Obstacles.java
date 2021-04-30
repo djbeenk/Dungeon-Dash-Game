@@ -1,5 +1,4 @@
 import java.awt.*;
-
 public class Obstacles {
     private int x,y;
     private int height, width;
@@ -12,6 +11,8 @@ public class Obstacles {
         this.width = width;
         this.height = height;
     }
+
+    //testing
 
     //Not using below methods currently, may use it in future
     public int getX(){
