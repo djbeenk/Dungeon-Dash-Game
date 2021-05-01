@@ -14,7 +14,7 @@ public class MainMenuPanel extends JPanel {
         JLabel title = new JLabel("Dungeon Dash", SwingConstants.CENTER);
         title.setFont(new Font("Serif", Font.BOLD, 30));
         title.setBorder(BorderFactory.createEmptyBorder(100,0,0,0));
-        title.setForeground(Color.WHITE);
+        title.setForeground(Color.black);
         add(title, BorderLayout.NORTH);
 
         JPanel bottomPanel = new JPanel();
@@ -22,7 +22,7 @@ public class MainMenuPanel extends JPanel {
         bottomPanel.setOpaque(false);
         start = new JLabel("Click start to begin.", SwingConstants.CENTER);
         start.setFont(new Font("Serif", Font.BOLD, 24));
-        start.setForeground(Color.WHITE);
+        start.setForeground(Color.black);
         start.setBackground(Color.DARK_GRAY);
         start.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
 

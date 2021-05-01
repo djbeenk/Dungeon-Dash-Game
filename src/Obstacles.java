@@ -18,7 +18,6 @@ public class Obstacles {
         bat = new ImageIcon("Bat.gif").getImage();
     }
 
-    //Not using below methods currently, may use it in future
     public int getX(){
         return x;
     }
@@ -38,7 +37,6 @@ public class Obstacles {
     public int getHeight() {
         return height;
     }
-    //Not using above methods currently, may use it in future
 
     //The update function for our obstacles. Moves the obstacles to the left by 11 pixels
     public void update() {

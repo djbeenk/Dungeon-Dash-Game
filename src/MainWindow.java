@@ -14,7 +14,7 @@ public class MainWindow extends JFrame {
         setSize(Width, Height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainMenu = new MainMenuPanel(this);
-        mainMenu.setBackground(new Color(50,99,77));
+        setContentPane(new BackgroundPanel("dungeon.png"));
         add(mainMenu);
         setVisible(true);
     }

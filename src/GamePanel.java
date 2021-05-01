@@ -38,7 +38,7 @@ public class GamePanel extends JPanel {
 
     private void update() {
         o_list.update(player);
-        bat_list.updateBat();
+        bat_list.updateBat(player);
     }
 
     private class TimerListener implements ActionListener {

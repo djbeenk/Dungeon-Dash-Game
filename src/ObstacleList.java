@@ -11,7 +11,7 @@ public class ObstacleList {
     public ObstacleList(){
         gameOver = 0;
 
-        //Create 15 obstacles/basic enemies. Their locations are randomized but have a set width of 60 and a height of 30.
+        //Create 2 obstacles/basic enemies. Their locations are randomized but have a set width of 60 and a height of 30.
         for (int i = 0; i < 2; i ++){
             addObstacle(new Obstacles((int) (400+Math.random()*800), (int) (Math.random()*550), 60,30));
         }
@@ -56,10 +56,18 @@ public class ObstacleList {
     }
 
     //Method for updating each bat in the list
-    public void updateBat(){
+    public void updateBat(Player passedPlayer) {
         for (int i = 0; i < bats.size(); i++) {
             tempBat = bats.get(i);
             tempBat.updateBat();
+            //HD checks collision upon move and will need a player to check against(added player pass requirement
+            boolean collided = ObjectCollisionCheck(passedPlayer, tempBat);
+            if (collided) {
+                System.out.println("player has collided");
+                //needs a way to remove the obstacle so it does not collide again. this method did not work
+                //removeObstacle(tempObstacle);
+                //addObstacle(new obstacle);
+            }
         }
     }
 
@@ -76,12 +84,16 @@ public class ObstacleList {
     //HD this function takes in a player and an obstacle and checks if the player touches the obstacle
     public boolean ObjectCollisionCheck (Player tempPlayer, Obstacles obstacleCheck){
         Obstacles myObstacle = obstacleCheck;
+
         int ObstacleHeight = myObstacle.getY() + myObstacle.getHeight();
+
         int PlayerHead = tempPlayer.getY();
         int playerFeet = tempPlayer.getY() + tempPlayer.getHeight();
         int PlayerLeftMost = tempPlayer.getX();
+
         int PlayerRightMost = tempPlayer.getX() + tempPlayer.getPlayerWidth();
         int ObstacleRightMost = myObstacle.getX() + myObstacle.getWidth();
+
         if (PlayerHead + 10 <= ObstacleHeight && playerFeet >= myObstacle.getY()){
                 if(PlayerLeftMost <= ObstacleRightMost && PlayerRightMost >= myObstacle.getX()) {
                             //System.out.println("Collision!" + collisionCount);
@@ -92,4 +104,6 @@ public class ObstacleList {
         return false;
         //this function will need to return a boolean to trigger lives
     }
+
+
 }
