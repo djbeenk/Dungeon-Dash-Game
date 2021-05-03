@@ -33,12 +33,18 @@ public class Player {
 
     //Jump function for player character. Every time player clicks up, moves player up 15 pixels
     public void jump() {
-        this.y -= 15;
+        //HD added code to limit jump to top of screen
+        if (this.y >=15){
+            this.y -= 15;
+        }
     }
 
     //Jump down function. Everytime player clicks down arrow, moves player down 15 pixels
     public void jumpDown() {
-        this.y += 15;
+        //HD added code to limit jump ot bottom of first screen
+        if(this.y <= 400){
+            this.y += 15;
+        }
     }
 
     public int getHeight() {
