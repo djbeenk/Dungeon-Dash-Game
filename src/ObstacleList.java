@@ -41,8 +41,9 @@ public class ObstacleList {
             if(collided){
                 System.out.println("player has collided");
                 //needs a way to remove the obstacle so it does not collide again. this method did not work
-                //removeObstacle(tempObstacle);
-                //addObstacle(new obstacle);
+                removeObstacle(tempObstacle);
+                addObstacle(new Obstacles((int) (400+Math.random()*800), (int) (Math.random()*550), 60,30));
+
             }
         }
     }
@@ -65,8 +66,9 @@ public class ObstacleList {
             if (collided) {
                 System.out.println("player has collided");
                 //needs a way to remove the obstacle so it does not collide again. this method did not work
-                //removeObstacle(tempObstacle);
-                //addObstacle(new obstacle);
+                removeObstacleBat(tempBat);
+                addObstacleBat(new Obstacles((int) (300+Math.random()*800), (int) (Math.random()*550), 40,40));
+
             }
         }
     }
@@ -79,6 +81,14 @@ public class ObstacleList {
     //Method for adding bat to the list
     public void addObstacleBat(Obstacles bat){
         bats.add(bat);
+    }
+
+    public void removeObstacle(Obstacles obstacles){
+        obstacle.remove(obstacles);
+    }
+
+    public void removeObstacleBat(Obstacles bat){
+        bats.remove(bat);
     }
 
     //HD this function takes in a player and an obstacle and checks if the player touches the obstacle
