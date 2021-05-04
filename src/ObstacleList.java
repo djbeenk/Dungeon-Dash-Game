@@ -39,10 +39,11 @@ public class ObstacleList {
             //HD checks collision upon move and will need a player to check against(added player pass requirement
             boolean collided = ObjectCollisionCheck(passedPlayer, tempObstacle);
             if(collided){
-                System.out.println("player has collided with basic enemy");
+                System.out.println("player has collided");
                 //needs a way to remove the obstacle so it does not collide again. this method did not work
-                //removeObstacle(tempObstacle);
-                //addObstacle(new obstacle);
+                removeObstacle(tempObstacle);
+                addObstacle(new Obstacles((int) (400+Math.random()*800), (int) (Math.random()*550), 60,30));
+
             }
         }
     }
@@ -63,10 +64,11 @@ public class ObstacleList {
             //HD checks collision upon move and will need a player to check against(added player pass requirement
             boolean collided = ObjectCollisionCheck(passedPlayer, tempBat);
             if (collided) {
-                System.out.println("player has collided with bat");
+                System.out.println("player has collided");
                 //needs a way to remove the obstacle so it does not collide again. this method did not work
-                //removeObstacle(tempObstacle);
-                //addObstacle(new obstacle);
+                removeObstacleBat(tempBat);
+                addObstacleBat(new Obstacles((int) (300+Math.random()*800), (int) (Math.random()*550), 40,40));
+
             }
         }
     }
@@ -81,7 +83,15 @@ public class ObstacleList {
         bats.add(bat);
     }
 
-    //HD this function takes in a player and an obstacle and checks if the player touches the obstacle(graphics and object size are not equal)
+    public void removeObstacle(Obstacles obstacles){
+        obstacle.remove(obstacles);
+    }
+
+    public void removeObstacleBat(Obstacles bat){
+        bats.remove(bat);
+    }
+
+    //HD this function takes in a player and an obstacle and checks if the player touches the obstacle
     public boolean ObjectCollisionCheck (Player tempPlayer, Obstacles obstacleCheck){
         Obstacles myObstacle = obstacleCheck;
 
@@ -96,7 +106,7 @@ public class ObstacleList {
 
         if (PlayerHead + 10 <= ObstacleHeight && playerFeet >= myObstacle.getY()){
                 if(PlayerLeftMost <= ObstacleRightMost && PlayerRightMost >= myObstacle.getX()) {
-                            //System.out.println("Collision!");
+                            //System.out.println("Collision!" + collisionCount);
                             return true;
                 }
             //}
