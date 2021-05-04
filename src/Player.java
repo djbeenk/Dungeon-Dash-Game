@@ -8,6 +8,8 @@ public class Player {
     private int playerWidth = 50;
     private int playerHeight = 50;
     Image player;
+    private int Score = 0;
+    private int Health = 25;
 
     //Player character is currently a sphere, x and y are locations while radius is for the shape
     public Player(int x, int y, int radius) {
@@ -57,7 +59,23 @@ public class Player {
 
     //Paint function.
     public void paint(Graphics g) {
+        //The below functions will paint the score on to the screen but are not well painted and very difficult to see.
+        //g.drawString(intAsText(Score), 20, 20);
+        //g.drawString(intAsText(Health), 660, 20);
         Graphics2D g2D = (Graphics2D) g;
         g2D.drawImage(player, x, y, playerWidth, playerHeight,null);
+    }
+    public void addScore(int points){
+        Score = Score + points;
+    }
+    public int getHealth(){return Health;}
+    public void lowerLives(){
+        while (Health > 0) {
+            Health--;
+        }
+    }
+    public String intAsText (int currentScore){
+        String myScore = Integer.toString(currentScore);
+        return myScore;
     }
 }

@@ -48,9 +48,12 @@ public class GamePanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             x++;
-            //System.out.println(x);
+            System.out.println(x);
             update();
             repaint();
+            if(x%10 == 0){
+                player.addScore(10);
+            }
         }
     }
 
@@ -66,7 +69,6 @@ public class GamePanel extends JPanel {
             }
         }
     }
-    //HD player collision check requires a list of objects
 }
 
 

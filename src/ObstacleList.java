@@ -39,8 +39,8 @@ public class ObstacleList {
             //HD checks collision upon move and will need a player to check against(added player pass requirement
             boolean collided = ObjectCollisionCheck(passedPlayer, tempObstacle);
             if(collided){
-                System.out.println("player has collided");
-                //needs a way to remove the obstacle so it does not collide again. this method did not work
+                System.out.println(passedPlayer.getHealth());
+                passedPlayer.lowerLives();
                 removeObstacle(tempObstacle);
                 addObstacle(new Obstacles((int) (400+Math.random()*800), (int) (Math.random()*550), 60,30));
 
@@ -64,8 +64,8 @@ public class ObstacleList {
             //HD checks collision upon move and will need a player to check against(added player pass requirement
             boolean collided = ObjectCollisionCheck(passedPlayer, tempBat);
             if (collided) {
-                System.out.println("player has collided");
-                //needs a way to remove the obstacle so it does not collide again. this method did not work
+                System.out.println(passedPlayer.getHealth());
+                passedPlayer.lowerLives();
                 removeObstacleBat(tempBat);
                 addObstacleBat(new Obstacles((int) (300+Math.random()*800), (int) (Math.random()*550), 40,40));
 
@@ -114,6 +114,4 @@ public class ObstacleList {
         return false;
         //this function will need to return a boolean to trigger lives
     }
-
-
 }
