@@ -37,7 +37,7 @@ public class Player {
     //Jump function for player character. Every time player clicks up, moves player up 15 pixels
     public void jump() {
         //HD added code to limit jump to top of screen and a freeze upon game over
-        if (this.y >=15 && gameOver){
+        if (this.y >=15 && (gameOver==false)){
             this.y -= 15;
         }
     }
@@ -45,7 +45,7 @@ public class Player {
     //Jump down function. Everytime player clicks down arrow, moves player down 15 pixels
     public void jumpDown() {
         //HD added code to limit jump ot bottom of first screen and a freeze upon game over
-        if(this.y <= 400 && gameOver){
+        if(this.y <= 400 && (gameOver==false)){
             this.y += 15;
         }
     }

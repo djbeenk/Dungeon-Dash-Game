@@ -51,7 +51,7 @@ public class GamePanel extends JPanel {
             System.out.println(x);
             update();
             repaint();
-            if(x%10 == 0 && player.getGameOver()){
+            if(x%10 == 0 && player.getGameOver()==false){
                 player.addScore(10);
             }
         }

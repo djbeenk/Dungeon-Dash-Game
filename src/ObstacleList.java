@@ -33,7 +33,7 @@ public class ObstacleList {
 
     //Method for updating each obstacle/basic enemy in the obstacleList.
     public void update(Player passedPlayer){
-        if (passedPlayer.getGameOver()){
+        if (passedPlayer.getGameOver() != true){
             for (int i = 0; i < obstacle.size(); i++) {
                 tempObstacle = obstacle.get(i);
                 tempObstacle.update();
@@ -60,7 +60,7 @@ public class ObstacleList {
 
     //Method for updating each bat in the list while game is not over
     public void updateBat(Player passedPlayer) {
-        if (passedPlayer.getGameOver()){
+        if (passedPlayer.getGameOver() != true){
             for (int i = 0; i < bats.size(); i++) {
                 tempBat = bats.get(i);
                 tempBat.updateBat();
