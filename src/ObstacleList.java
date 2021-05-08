@@ -12,7 +12,7 @@ public class ObstacleList {
         gameOver = 0;
 
         //Create 15 obstacles/basic enemies. Their locations are randomized but have a set width of 60 and a height of 30.
-        for (int i = 0; i < 15; i ++){
+        for (int i = 0; i < 5; i ++){
             addObstacle(new Obstacles((int) (400+Math.random()*800), (int) (Math.random()*550), 60,30));
         }
 
@@ -33,16 +33,18 @@ public class ObstacleList {
 
     //Method for updating each obstacle/basic enemy in the obstacleList.
     public void update(Player passedPlayer){
-        for (int i = 0; i < obstacle.size(); i++) {
-            tempObstacle = obstacle.get(i);
-            tempObstacle.update();
-            //HD checks collision upon move and will need a player to check against(added player pass requirement
-            boolean collided = ObjectCollisionCheck(passedPlayer, tempObstacle);
-            if(collided){
-                System.out.println(passedPlayer.getHealth());
-                passedPlayer.lowerLives();
-                removeObstacle(tempObstacle);
-                addObstacle(new Obstacles((int) (400+Math.random()*800), (int) (Math.random()*550), 60,30));
+        if (passedPlayer.getGameOver()){
+            for (int i = 0; i < obstacle.size(); i++) {
+                tempObstacle = obstacle.get(i);
+                tempObstacle.update();
+                //HD checks collision upon move and will need a player to check against(added player pass requirement
+                boolean collided = ObjectCollisionCheck(passedPlayer, tempObstacle);
+                if(collided){
+                    //System.out.println(passedPlayer.getHealth());
+                    passedPlayer.lowerLives(2);
+                    removeObstacle(tempObstacle);
+                    addObstacle(new Obstacles((int) (400+Math.random()*800), (int) (Math.random()*550), 60,30));
+                }
 
             }
         }
@@ -56,19 +58,20 @@ public class ObstacleList {
         }
     }
 
-    //Method for updating each bat in the list
+    //Method for updating each bat in the list while game is not over
     public void updateBat(Player passedPlayer) {
-        for (int i = 0; i < bats.size(); i++) {
-            tempBat = bats.get(i);
-            tempBat.updateBat();
-            //HD checks collision upon move and will need a player to check against(added player pass requirement
-            boolean collided = ObjectCollisionCheck(passedPlayer, tempBat);
-            if (collided) {
-                System.out.println(passedPlayer.getHealth());
-                passedPlayer.lowerLives();
-                removeObstacleBat(tempBat);
-                addObstacleBat(new Obstacles((int) (300+Math.random()*800), (int) (Math.random()*550), 40,40));
+        if (passedPlayer.getGameOver()){
+            for (int i = 0; i < bats.size(); i++) {
+                tempBat = bats.get(i);
+                tempBat.updateBat();
+                //HD checks collision upon move and will need a player to check against and relocate the collided object
+                boolean collided = ObjectCollisionCheck(passedPlayer, tempBat);
+                if (collided) {
+                    passedPlayer.lowerLives(1);
+                    removeObstacleBat(tempBat);
+                    addObstacleBat(new Obstacles((int) (300 + Math.random() * 800), (int) (Math.random() * 550), 40, 40));
 
+                }
             }
         }
     }
@@ -91,7 +94,7 @@ public class ObstacleList {
         bats.remove(bat);
     }
 
-    //HD this function takes in a player and an obstacle and checks if the player touches the obstacle
+    //HD, this function takes in a player and an obstacle and checks if the player touches the obstacle
     public boolean ObjectCollisionCheck (Player tempPlayer, Obstacles obstacleCheck){
         Obstacles myObstacle = obstacleCheck;
 
@@ -106,12 +109,9 @@ public class ObstacleList {
 
         if (PlayerHead + 10 <= ObstacleHeight && playerFeet >= myObstacle.getY()){
                 if(PlayerLeftMost <= ObstacleRightMost && PlayerRightMost >= myObstacle.getX()) {
-                            //System.out.println("Collision!" + collisionCount);
                             return true;
                 }
-            //}
         }
         return false;
-        //this function will need to return a boolean to trigger lives
     }
 }

@@ -37,26 +37,25 @@ public class GamePanel extends JPanel {
     }
 
     private void update() {
-        o_list.update(player);
-        bat_list.updateBat(player);
+            o_list.update(player);
+            bat_list.updateBat(player);
     }
 
     private class TimerListener implements ActionListener {
         public int x = 0;
 
-        //Method for the player character. We will repaint and update everytime we move up or down.
+        //Method for the player character. We will repaint and update everytime we move up or down and track the score while game is not over.
         @Override
         public void actionPerformed(ActionEvent e) {
             x++;
             System.out.println(x);
             update();
             repaint();
-            if(x%10 == 0){
+            if(x%10 == 0 && player.getGameOver()){
                 player.addScore(10);
             }
         }
     }
-
     //Method to listen for anytime the player presses the up or down arrow. Calls the player jump and jumpDown methods located in player.java
     private class jumpListen extends KeyAdapter {
         public void keyPressed(KeyEvent e) {
