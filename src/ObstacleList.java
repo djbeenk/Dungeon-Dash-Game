@@ -5,8 +5,10 @@ import java.util.LinkedList;
 public class ObstacleList {
     LinkedList<Obstacles> obstacle = new LinkedList<Obstacles>();
     LinkedList<Obstacles> bats = new LinkedList<Obstacles>();
+    LinkedList<Obstacles> hearts = new LinkedList<>();
     Obstacles tempObstacle;
     Obstacles tempBat;
+    Obstacles tempHeart;
     int gameOver;
     public ObstacleList(){
         gameOver = 0;
@@ -19,6 +21,11 @@ public class ObstacleList {
         //Create 5 bats. Their locations are randomized
         for (int i = 0; i < 5; i ++){
             addObstacleBat(new Obstacles((int) (300+Math.random()*800), (int) (Math.random()*550), 40,40));
+        }
+
+        //Create a heart
+        for (int i = 0; i < 1; i++){
+            addObstacleHeart(new Obstacles((int) (300+Math.random()*800), (int) (Math.random()*550), 40,40));
         }
     }
 
@@ -76,6 +83,31 @@ public class ObstacleList {
         }
     }
 
+    public void paintHeart(Graphics2D g2d){
+        for (int i = 0; i < hearts.size(); i++){
+            tempHeart = hearts.get(i);
+            tempHeart.paintHeart(g2d);
+            tempHeart.shift();
+        }
+    }
+
+    public void updateHeart(Player passedPlayer) {
+        if (passedPlayer.getGameOver() != true){
+            for (int i = 0; i < hearts.size(); i++) {
+                tempHeart = hearts.get(i);
+                tempHeart.updateHeart();
+                //HD checks collision upon move and will need a player to check against and relocate the collided object
+                boolean collided = ObjectCollisionCheck(passedPlayer, tempHeart);
+                if (collided) {
+                    passedPlayer.raiseLife(1);
+                    removeObstacleHeart(tempHeart);
+                    addObstacleHeart(new Obstacles((int) (300 + Math.random() * 800), (int) (Math.random() * 550), 40, 40));
+
+                }
+            }
+        }
+    }
+
     //Method for adding the obstacles/basic enemy to the list.
     public void addObstacle(Obstacles obstacles){
         obstacle.add(obstacles);
@@ -86,12 +118,20 @@ public class ObstacleList {
         bats.add(bat);
     }
 
+    public void addObstacleHeart(Obstacles heart) {
+        hearts.add(heart);
+    }
+
     public void removeObstacle(Obstacles obstacles){
         obstacle.remove(obstacles);
     }
 
     public void removeObstacleBat(Obstacles bat){
         bats.remove(bat);
+    }
+
+    public void removeObstacleHeart(Obstacles heart){
+        hearts.remove(heart);
     }
 
     //HD, this function takes in a player and an obstacle and checks if the player touches the obstacle

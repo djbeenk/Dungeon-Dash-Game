@@ -81,6 +81,15 @@ public class Player {
             }
         }
     }
+
+    public void raiseLife(int damage){
+        if (Health > 0){
+            Health= Health + damage;
+            if (Health <=0){
+                gameOver = true;
+            }
+        }
+    }
     // it converts an int onto a text, used for score
     public String intAsText (int currentScore){
         String myScore = Integer.toString(currentScore);

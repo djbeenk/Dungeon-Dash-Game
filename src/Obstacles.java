@@ -4,8 +4,8 @@ public class Obstacles {
     private int x,y;
     private int height, width;
     private int xSpeed, ySpeed;
-    //Declare images, basic enemy and bat
-    Image basicEnemy, bat;
+    //Declare images, basic enemy, bat, heart
+    Image basicEnemy, bat, heart;
 
     //Our obstacles are currently rectangles. X and Y represent where they are located on the game window, width and height are how big the obstacles are
     public Obstacles(int x, int y, int width, int height){
@@ -16,6 +16,7 @@ public class Obstacles {
         //Get images of the basic enemy and bat
         basicEnemy = new ImageIcon("basicEnemy.gif").getImage();
         bat = new ImageIcon("Bat.gif").getImage();
+        heart = new ImageIcon("Heart.gif").getImage();
     }
 
     public int getX(){
@@ -47,6 +48,10 @@ public class Obstacles {
         this.x -= 25;
     }
 
+    public void updateHeart(){
+        this.x -= 11;
+    }
+
     //Paint function for the basic enemy
     public void paint(Graphics g) {
         Graphics2D g2D = (Graphics2D) g;
@@ -57,6 +62,11 @@ public class Obstacles {
     public void paintBat(Graphics g) {
         Graphics2D g2D = (Graphics2D) g;
         g2D.drawImage(bat, x, y, 40, 40,null);
+    }
+
+    public void paintHeart(Graphics g) {
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.drawImage(heart, x, y, 40,40,null);
     }
 
     //Shift function for obstacles. When the obstacle reaches the left side of the screen, shift/move the obstacle over to the right to make it look like the game is infinite

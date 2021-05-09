@@ -10,6 +10,7 @@ public class GamePanel extends JPanel {
     private int y;
     ObstacleList o_list;
     ObstacleList bat_list;
+    ObstacleList heart_list;
 
     public GamePanel() {
         setFocusable(true);
@@ -20,6 +21,7 @@ public class GamePanel extends JPanel {
         //Linked list called obstacleList which stores all of our obstacles
         o_list = new ObstacleList();
         bat_list = new ObstacleList();
+        heart_list = new ObstacleList();
         setOpaque(false);
         Timer timer = new Timer(100, new TimerListener());
         timer.start();
@@ -34,11 +36,13 @@ public class GamePanel extends JPanel {
         player.paint(g2d);
         o_list.paint((Graphics2D) g2d);
         bat_list.paintBat((Graphics2D) g2d);
+        heart_list.paintHeart((Graphics2D) g2d);
     }
 
     private void update() {
             o_list.update(player);
             bat_list.updateBat(player);
+            heart_list.updateHeart(player);
     }
 
     private class TimerListener implements ActionListener {
