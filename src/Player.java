@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
+import java.util.Scanner;
 
 public class Player {
     private int x, y;
@@ -12,12 +14,47 @@ public class Player {
     private int Health = 5;
     private boolean gameOver = false;
 
+    private int highScore;
+    File highScoreFile;
+
     //Player character is currently a sphere, x and y are locations while radius is for the shape
     public Player(int x, int y, int radius) {
         this.x = x;
         this.y = y;
         this.radius = radius;
         player = new ImageIcon("player.gif").getImage();
+
+        highScoreFile = new File("highscore.txt");
+        try {
+            Scanner highScoreScanner = new Scanner(highScoreFile);
+            highScore = highScoreScanner.nextInt();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //returns the current high score
+    public int getHighScore() {
+        return this.highScore;
+    }
+
+    //updates the high score if the score was higher than the previous high score saved in the highscore.txt file
+    public void updateHighScore() {
+        try {
+            FileWriter fw = new FileWriter(highScoreFile);
+            PrintWriter pw = new PrintWriter(fw);
+            System.out.println(this.Score);
+            pw.println(this.Score);
+            pw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //returns the current score
+    public int getScore() {
+        return this.Score;
     }
 
     //Not using below functions currently, may use in future
@@ -63,6 +100,8 @@ public class Player {
         //The below functions will paint the score and health on to the screen while game is not over
         g.drawString("Score: " + intAsText(Score), 20, 150);
         g.drawString("Health: " + intAsText(Health), 20, 170);
+        g.drawString("High Score: " + intAsText(highScore), 20, 190);
+
         if (gameOver){
             g.drawString("GAME OVER", 100, 200);
         }
@@ -72,7 +111,7 @@ public class Player {
     public void addScore(int points){
         Score = Score + points;
     }
-    //lovers the players health if they take damage
+    //lowers the players health if they take damage
     public void lowerLives(int damage){
         if (Health > 0) {
             Health= Health - damage;
@@ -98,5 +137,9 @@ public class Player {
     //passes gameOver status
     public boolean getGameOver(){
         return gameOver;
+    }
+    //method for changing the game over status
+    public void setGameOver(boolean isOver) {
+        this.gameOver = isOver;
     }
 }

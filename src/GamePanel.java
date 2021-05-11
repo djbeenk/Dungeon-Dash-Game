@@ -2,8 +2,11 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class GamePanel extends JPanel {
     private Player player;
@@ -11,6 +14,8 @@ public class GamePanel extends JPanel {
     ObstacleList o_list;
     ObstacleList bat_list;
     ObstacleList heart_list;
+    Timer timer;
+    private int highScore;
 
     public GamePanel() {
         setFocusable(true);
@@ -23,10 +28,14 @@ public class GamePanel extends JPanel {
         bat_list = new ObstacleList();
         heart_list = new ObstacleList();
         setOpaque(false);
-        Timer timer = new Timer(100, new TimerListener());
+        timer = new Timer(100, new TimerListener());
         timer.start();
         //KeyListener for up and down arrow
         this.addKeyListener(new jumpListen());
+    }
+
+    void stopTimer() {
+        this.timer.stop();
     }
 
     //Method for painting the player and the obstacles in obstacle list
@@ -51,12 +60,24 @@ public class GamePanel extends JPanel {
         //Method for the player character. We will repaint and update everytime we move up or down and track the score while game is not over.
         @Override
         public void actionPerformed(ActionEvent e) {
-            x++;
-            System.out.println(x);
-            update();
-            repaint();
-            if(x%10 == 0 && player.getGameOver()==false){
-                player.addScore(10);
+            //if the game is still going, continue updating. If it's game over, stop updating
+            if (!player.getGameOver()) {
+                x++;
+                System.out.println(x);
+                update();
+                repaint();
+                if (x % 10 == 0) {
+                    player.addScore(10);
+                }
+            //if the game ends
+            } else {
+                stopTimer();
+                System.out.println("Game End");
+                System.out.println(player.getScore());
+                if (player.getScore() > player.getHighScore()) {
+                    player.updateHighScore();
+                }
+
             }
         }
     }
