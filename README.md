@@ -9,6 +9,7 @@ a scoreboard has not yet been implemented. Collisions and enemies have already b
 Stretch Goal #1
 
 - Save highest score and display it in corner of screen
+    - This stretch goal has been completed.
 
 - An obstacle that allows you to gain a life back.
     - This stretch goal has been completed.
