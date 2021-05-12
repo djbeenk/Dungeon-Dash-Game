@@ -24,5 +24,6 @@ Stretch Goal #2
   - This stretch goal has been completed
   
 - Music and sound for game
+    - This stretch goal has been completed.
 
 
