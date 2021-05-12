@@ -1,9 +1,11 @@
+import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
@@ -16,8 +18,9 @@ public class GamePanel extends JPanel {
     ObstacleList heart_list;
     Timer timer;
     private int highScore;
+    Clip clip = null;
 
-    public GamePanel() {
+    public GamePanel() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         setFocusable(true);
         //Set the size of the game window
         setSize(700, 500);
@@ -32,6 +35,14 @@ public class GamePanel extends JPanel {
         timer.start();
         //KeyListener for up and down arrow
         this.addKeyListener(new jumpListen());
+
+//Music for the game. Opens the file, starts it, and loops continuously.
+        File file = new File("music.wav");
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+        clip = AudioSystem.getClip();
+        clip.open(audioStream);
+        clip.start();
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     void stopTimer() {
@@ -48,10 +59,10 @@ public class GamePanel extends JPanel {
         heart_list.paintHeart((Graphics2D) g2d);
     }
 
-    private void update() {
-            o_list.update(player);
-            bat_list.updateBat(player);
-            heart_list.updateHeart(player);
+    private void update() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        o_list.update(player);
+        bat_list.updateBat(player);
+        heart_list.updateHeart(player);
     }
 
     private class TimerListener implements ActionListener {
@@ -64,15 +75,52 @@ public class GamePanel extends JPanel {
             if (!player.getGameOver()) {
                 x++;
                 System.out.println(x);
-                update();
+                try {
+                    update();
+                } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                    unsupportedAudioFileException.printStackTrace();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                } catch (LineUnavailableException lineUnavailableException) {
+                    lineUnavailableException.printStackTrace();
+                }
                 repaint();
                 if (x % 10 == 0) {
                     player.addScore(10);
                 }
-            //if the game ends
+                //if the game ends
             } else {
                 stopTimer();
                 System.out.println("Game End");
+                //Stop the music once we reach game over
+                clip.stop();
+
+                //Play a game over sound effect if you lose. There were a few errors so I let IntelliJ fix them with all of these catch exceptions. The code works though.
+                File file2 = new File("gameover.wav");
+                AudioInputStream audioStream = null;
+                try {
+                    audioStream = AudioSystem.getAudioInputStream(file2);
+                } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                    unsupportedAudioFileException.printStackTrace();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                Clip clip2 = null;
+                try {
+                    clip2 = AudioSystem.getClip();
+                } catch (LineUnavailableException lineUnavailableException) {
+                    lineUnavailableException.printStackTrace();
+                }
+                try {
+                    clip2.open(audioStream);
+                } catch (LineUnavailableException lineUnavailableException) {
+                    lineUnavailableException.printStackTrace();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                clip2.start();
+
+
                 System.out.println(player.getScore());
                 if (player.getScore() > player.getHighScore()) {
                     player.updateHighScore();
@@ -94,5 +142,3 @@ public class GamePanel extends JPanel {
         }
     }
 }
-
-

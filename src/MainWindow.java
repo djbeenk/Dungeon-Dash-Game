@@ -1,5 +1,8 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class MainWindow extends JFrame {
     public static int Height;
@@ -20,7 +23,7 @@ public class MainWindow extends JFrame {
     }
 
     //The game menu. As soon as player clicks start, remove the main menu and load up the game
-    public void startGame() {
+    public void startGame() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         remove(mainMenu);
         mainMenu.setFocusable(false);
         JPanel gamePanel = new GamePanel();

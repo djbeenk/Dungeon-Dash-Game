@@ -1,6 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.*;
 
 public class ObstacleList {
     LinkedList<Obstacles> obstacle = new LinkedList<Obstacles>();
@@ -10,7 +15,8 @@ public class ObstacleList {
     Obstacles tempBat;
     Obstacles tempHeart;
     int gameOver;
-    public ObstacleList(){
+
+    public ObstacleList() {
         gameOver = 0;
 
         //Create 15 obstacles/basic enemies. Their locations are randomized but have a set width of 60 and a height of 30.
@@ -39,7 +45,7 @@ public class ObstacleList {
     }
 
     //Method for updating each obstacle/basic enemy in the obstacleList.
-    public void update(Player passedPlayer){
+    public void update(Player passedPlayer) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         if (passedPlayer.getGameOver() != true){
             for (int i = 0; i < obstacle.size(); i++) {
                 tempObstacle = obstacle.get(i);
@@ -47,6 +53,13 @@ public class ObstacleList {
                 //HD checks collision upon move and will need a player to check against(added player pass requirement
                 boolean collided = ObjectCollisionCheck(passedPlayer, tempObstacle);
                 if(collided){
+                    //If the player has collided, play sound effect.
+                    File file2 = new File("enemyHit.wav");
+                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(file2);
+                    Clip clip2 = AudioSystem.getClip();
+                    clip2.open(audioStream);
+                    clip2.start();
+
                     //System.out.println(passedPlayer.getHealth());
                     passedPlayer.lowerLives(2);
                     removeObstacle(tempObstacle);
@@ -66,7 +79,7 @@ public class ObstacleList {
     }
 
     //Method for updating each bat in the list while game is not over
-    public void updateBat(Player passedPlayer) {
+    public void updateBat(Player passedPlayer) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         if (passedPlayer.getGameOver() != true){
             for (int i = 0; i < bats.size(); i++) {
                 tempBat = bats.get(i);
@@ -74,6 +87,13 @@ public class ObstacleList {
                 //HD checks collision upon move and will need a player to check against and relocate the collided object
                 boolean collided = ObjectCollisionCheck(passedPlayer, tempBat);
                 if (collided) {
+                    //If player has collided, play sound effect
+                    File file2 = new File("enemyHit.wav");
+                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(file2);
+                    Clip clip2 = AudioSystem.getClip();
+                    clip2.open(audioStream);
+                    clip2.start();
+
                     passedPlayer.lowerLives(1);
                     removeObstacleBat(tempBat);
                     addObstacleBat(new Obstacles((int) (300 + Math.random() * 800), (int) (Math.random() * 550), 40, 40));
@@ -91,7 +111,7 @@ public class ObstacleList {
         }
     }
 
-    public void updateHeart(Player passedPlayer) {
+    public void updateHeart(Player passedPlayer) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         if (passedPlayer.getGameOver() != true){
             for (int i = 0; i < hearts.size(); i++) {
                 tempHeart = hearts.get(i);
@@ -99,6 +119,13 @@ public class ObstacleList {
                 //HD checks collision upon move and will need a player to check against and relocate the collided object
                 boolean collided = ObjectCollisionCheck(passedPlayer, tempHeart);
                 if (collided) {
+                    //If player has collided, play sound effect
+                    File file2 = new File("heartSound.wav");
+                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(file2);
+                    Clip clip2 = AudioSystem.getClip();
+                    clip2.open(audioStream);
+                    clip2.start();
+
                     passedPlayer.raiseLife(1);
                     removeObstacleHeart(tempHeart);
                     addObstacleHeart(new Obstacles((int) (300 + Math.random() * 800), (int) (Math.random() * 550), 40, 40));
