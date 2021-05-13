@@ -1,7 +1,6 @@
 # Endless_Runner_Project
 Welcome to Dungeon Dash!
-In order to play this game, use the up and down arrow keys on your keyboard. The goal of the game is to dodge the incoming enemies. As of April 30 2021,
-a scoreboard has not yet been implemented. Collisions and enemies have already been implemented though.
+In order to play this game, use the up and down arrow keys on your keyboard. The goal of the game is to dodge the incoming enemies. 
 
 
 
@@ -24,5 +23,6 @@ Stretch Goal #2
   - This stretch goal has been completed
   
 - Music and sound for game
+    - This stretch goal has been completed.
 
 
