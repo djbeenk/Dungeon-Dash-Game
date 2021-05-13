@@ -58,10 +58,11 @@ public class ObstacleList {
                     Clip clip2 = AudioSystem.getClip();
                     clip2.open(audioStream);
                     clip2.start();
-
-                    //System.out.println(passedPlayer.getHealth());
+                    //If the player collides with the basic enemy, take 2 damage
                     passedPlayer.lowerLives(2);
+                    //Remove the obstacle once you collide
                     removeObstacleBasic(tempObstacle);
+                    //Re-add/shift the obstacle back
                     addObstacleBasic(new Obstacles((int) (400+Math.random()*800), (int) (Math.random()*550), 60,30));
                 }
 
@@ -93,6 +94,7 @@ public class ObstacleList {
                     clip2.open(audioStream);
                     clip2.start();
 
+                    //Player takes 1 damage if they collide, remove bat so player doesn't continue to take damage, and re-add it
                     passedPlayer.lowerLives(1);
                     removeObstacleBat(tempBat);
                     addObstacleBat(new Obstacles((int) (300 + Math.random() * 800), (int) (Math.random() * 550), 40, 40));
@@ -125,6 +127,7 @@ public class ObstacleList {
                     clip2.open(audioStream);
                     clip2.start();
 
+                    //Player gains a life if they collide with the heart
                     passedPlayer.raiseLife(1);
                     removeObstacleHeart(tempHeart);
                     addObstacleHeart(new Obstacles((int) (300 + Math.random() * 800), (int) (Math.random() * 550), 40, 40));
