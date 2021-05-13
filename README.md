@@ -1,6 +1,6 @@
 # Endless_Runner_Project
 Welcome to Dungeon Dash!
-In order to play this game, use the up and down arrow keys on your keyboard. The goal of the game is to dodge the incoming enemies. 
+In order to play this game, use the up and down arrow keys on your keyboard. The goal of the game is to dodge the incoming enemies, get the highest score, and try to beat that high score.
 
 
 
