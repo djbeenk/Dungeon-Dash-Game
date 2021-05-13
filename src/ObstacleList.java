@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +7,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.*;
 
 public class ObstacleList {
-    LinkedList<Obstacles> obstacle = new LinkedList<Obstacles>();
+    LinkedList<Obstacles> basicEnemy = new LinkedList<Obstacles>();
     LinkedList<Obstacles> bats = new LinkedList<Obstacles>();
     LinkedList<Obstacles> hearts = new LinkedList<>();
     Obstacles tempObstacle;
@@ -19,9 +18,9 @@ public class ObstacleList {
     public ObstacleList() {
         gameOver = 0;
 
-        //Create 15 obstacles/basic enemies. Their locations are randomized but have a set width of 60 and a height of 30.
+        //Create 5 obstacles/basic enemies. Their locations are randomized but have a set width of 60 and a height of 30.
         for (int i = 0; i < 5; i ++){
-            addObstacle(new Obstacles((int) (400+Math.random()*800), (int) (Math.random()*550), 60,30));
+            addObstacleBasic(new Obstacles((int) (400+Math.random()*800), (int) (Math.random()*550), 60,30));
         }
 
         //Create 5 bats. Their locations are randomized
@@ -37,19 +36,19 @@ public class ObstacleList {
 
     //Method for painting each basic enemy in the obstacleList. Uses a for list to iterate through each obstacle in the list. When an obstacle is called, it is stored in a temporary variable and painted before going onto the next obstacle in list.
     public void paint(Graphics2D g2d){
-        for(int i = 0; i < obstacle.size(); i++) {
-            tempObstacle = obstacle.get(i);
+        for(int i = 0; i < basicEnemy.size(); i++) {
+            tempObstacle = basicEnemy.get(i);
             tempObstacle.paint(g2d);
             tempObstacle.shift();
         }
     }
 
     //Method for updating each obstacle/basic enemy in the obstacleList.
-    public void update(Player passedPlayer) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    public void updateBasicEnemy(Player passedPlayer) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         if (passedPlayer.getGameOver() != true){
-            for (int i = 0; i < obstacle.size(); i++) {
-                tempObstacle = obstacle.get(i);
-                tempObstacle.update();
+            for (int i = 0; i < basicEnemy.size(); i++) {
+                tempObstacle = basicEnemy.get(i);
+                tempObstacle.updateBasicEnemy();
                 //HD checks collision upon move and will need a player to check against(added player pass requirement
                 boolean collided = ObjectCollisionCheck(passedPlayer, tempObstacle);
                 if(collided){
@@ -62,8 +61,8 @@ public class ObstacleList {
 
                     //System.out.println(passedPlayer.getHealth());
                     passedPlayer.lowerLives(2);
-                    removeObstacle(tempObstacle);
-                    addObstacle(new Obstacles((int) (400+Math.random()*800), (int) (Math.random()*550), 60,30));
+                    removeObstacleBasic(tempObstacle);
+                    addObstacleBasic(new Obstacles((int) (400+Math.random()*800), (int) (Math.random()*550), 60,30));
                 }
 
             }
@@ -120,7 +119,7 @@ public class ObstacleList {
                 boolean collided = ObjectCollisionCheck(passedPlayer, tempHeart);
                 if (collided) {
                     //If player has collided, play sound effect
-                    File file2 = new File("heartSound.wav");
+                    File file2 = new File("heartSound1.wav");
                     AudioInputStream audioStream = AudioSystem.getAudioInputStream(file2);
                     Clip clip2 = AudioSystem.getClip();
                     clip2.open(audioStream);
@@ -135,9 +134,9 @@ public class ObstacleList {
         }
     }
 
-    //Method for adding the obstacles/basic enemy to the list.
-    public void addObstacle(Obstacles obstacles){
-        obstacle.add(obstacles);
+    //Method for adding the basic enemy to the list.
+    public void addObstacleBasic(Obstacles enemy){
+        basicEnemy.add(enemy);
     }
 
     //Method for adding bat to the list
@@ -145,18 +144,22 @@ public class ObstacleList {
         bats.add(bat);
     }
 
+    //Method for adding heart to list
     public void addObstacleHeart(Obstacles heart) {
         hearts.add(heart);
     }
 
-    public void removeObstacle(Obstacles obstacles){
-        obstacle.remove(obstacles);
+    //Method for removing basic enemy from list
+    public void removeObstacleBasic(Obstacles enemy){
+        basicEnemy.remove(enemy);
     }
 
+    //Method for removing bat from list
     public void removeObstacleBat(Obstacles bat){
         bats.remove(bat);
     }
 
+    //Method for removing heart from list
     public void removeObstacleHeart(Obstacles heart){
         hearts.remove(heart);
     }

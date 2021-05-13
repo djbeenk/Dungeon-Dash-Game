@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class Player {
     private int x, y;
-    //radius is not being used currently
     private int radius;
     private int playerWidth = 50;
     private int playerHeight = 50;
@@ -17,7 +16,6 @@ public class Player {
     private int highScore;
     File highScoreFile;
 
-    //Player character is currently a sphere, x and y are locations while radius is for the shape
     public Player(int x, int y, int radius) {
         this.x = x;
         this.y = y;
@@ -121,6 +119,7 @@ public class Player {
         }
     }
 
+    //Raise life function for when the player collides with the heart.
     public void raiseLife(int damage){
         if (Health > 0){
             Health= Health + damage;

@@ -1,14 +1,10 @@
 import javax.sound.sampled.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Random;
-import java.util.Scanner;
+
 
 public class GamePanel extends JPanel {
     private Player player;
@@ -60,7 +56,7 @@ public class GamePanel extends JPanel {
     }
 
     private void update() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        o_list.update(player);
+        o_list.updateBasicEnemy(player);
         bat_list.updateBat(player);
         heart_list.updateHeart(player);
     }

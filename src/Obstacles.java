@@ -3,7 +3,6 @@ import java.awt.*;
 public class Obstacles {
     private int x,y;
     private int height, width;
-    private int xSpeed, ySpeed;
     //Declare images, basic enemy, bat, heart
     Image basicEnemy, bat, heart;
 
@@ -13,7 +12,7 @@ public class Obstacles {
         this.y = y;
         this.width = width;
         this.height = height;
-        //Get images of the basic enemy and bat
+        //Get images of the basic enemy, bat, and heart
         basicEnemy = new ImageIcon("basicEnemy.gif").getImage();
         bat = new ImageIcon("Bat.gif").getImage();
         heart = new ImageIcon("Heart.gif").getImage();
@@ -27,10 +26,6 @@ public class Obstacles {
         return y;
     }
 
-    public void setX(int i) {
-        this.x = x;
-    }
-
     public int getWidth() {
         return width;
     }
@@ -39,15 +34,17 @@ public class Obstacles {
         return height;
     }
 
-    //The update function for our obstacles. Moves the obstacles to the left by 11 pixels
-    public void update() {
+    //The update function for our basic enemy. Moves the enemy to the left by 11 pixels
+    public void updateBasicEnemy() {
         this.x -= 11;
     }
 
+    //Bats move to the left by 25 pixels
     public void updateBat(){
         this.x -= 25;
     }
 
+    //Hearts move from right to left by 11 pixels
     public void updateHeart(){
         this.x -= 11;
     }
@@ -64,6 +61,7 @@ public class Obstacles {
         g2D.drawImage(bat, x, y, 40, 40,null);
     }
 
+    //Paint function for heart
     public void paintHeart(Graphics g) {
         Graphics2D g2D = (Graphics2D) g;
         g2D.drawImage(heart, x, y, 40,40,null);
